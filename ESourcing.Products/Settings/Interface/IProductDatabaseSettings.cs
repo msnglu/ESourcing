@@ -1,4 +1,4 @@
-﻿namespace ESourcing.Products.Settings
+﻿namespace ESourcing.Products.Settings.Interface
 {
     public interface IProductDatabaseSettings
     {

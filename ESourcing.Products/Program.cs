@@ -3,6 +3,7 @@ using ESourcing.Products.Data.Interfaces;
 using ESourcing.Products.Repositories;
 using ESourcing.Products.Repositories.Interfaces;
 using ESourcing.Products.Settings;
+using ESourcing.Products.Settings.Interface;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
