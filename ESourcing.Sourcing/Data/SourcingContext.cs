@@ -9,11 +9,14 @@ namespace ESourcing.Sourcing.Data
     {
         public SourcingContext(ISourcingDatabaseSettings settings)
         {
-            var client = new MongoClient(settings.ConnectionString);
+             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
             Auction = database.GetCollection<Auction>(nameof(Auction));
             Bid = database.GetCollection<Bid>(nameof(Bid));
+
+            //For Preloading
+            SourcingContextSeed.SeedData(Auction);
         }
         public IMongoCollection<Auction> Auction { get; }
 

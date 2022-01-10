@@ -1,6 +1,7 @@
 ﻿using ESourcing.Products.Data.Interfaces;
 using ESourcing.Products.Entities;
 using ESourcing.Products.Settings;
+using ESourcing.Products.Settings.Interface;
 using MongoDB.Driver;
 
 namespace ESourcing.Products.Data
