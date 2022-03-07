@@ -22,7 +22,9 @@ namespace ESourcing.Sourcing.Repositories
         public async Task<Bid> GetWinnerBid(string id)
         {
             List<Bid> birds = await GetBidsByAuctionId(id);
+#pragma warning disable CS8603 // Possible null reference return.
             return birds.OrderByDescending(a => a.Price).FirstOrDefault();
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
         public async Task<List<Bid>> GetBidsByAuctionId(string id)

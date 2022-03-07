@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace Ordering.Domain.Repositories.Base
 {
+#pragma warning disable CS0436 // Type conflicts with imported type
     public interface IRepository<T> where T : Entity
+#pragma warning restore CS0436 // Type conflicts with imported type
     {
       
         Task<IEnumerable<T>> GetAllAsync();

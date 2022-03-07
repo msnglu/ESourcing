@@ -21,7 +21,9 @@ namespace EventBusRabbitMQ
         private readonly ILogger<DefaultRabbitMQPersistentConnection> _logger;
         private bool _disposed;
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public DefaultRabbitMQPersistentConnection(
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
             IConnectionFactory connectionFactory,
             int retryCount,
             ILogger<DefaultRabbitMQPersistentConnection> logger)
