@@ -15,4 +15,13 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\" />
+    <Folder Include="Handlers\" />
+    <Folder Include="Mapper\" />
+    <Folder Include="PipelineBehaviours\" />
+    <Folder Include="Responses\" />
+    <Folder Include="Queries\" />
+  </ItemGroup>
+
 </Project>
