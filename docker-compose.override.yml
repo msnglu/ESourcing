@@ -8,12 +8,22 @@ services:
        - ${WEBAPP_STORAGE_HOME}/site:/data/db
     ports:
        - "27017:27017"
+
   rabbitmq:
     container_name: rabbitmq
     restart: always
     ports:
        - "5672:5672"
        - "15672:15672"
+
+  sourcingsqldb:
+    container_name: sourcingsqldb
+    ports:
+      - "1433:1433" 
+    environment:
+      SA_PASSWORD: "Odb12345678"
+      ACCEPT_EULA: "Y"
+
   esourcing.products:
     container_name: esourcingproducts
     environment:
@@ -41,4 +51,20 @@ services:
       - ${HOME}/.aspnet/https:/root/.aspnet/https/
     ports:
       - "8001:80"
+
+
+  esourcing.order:
+    container_name: esourcingorder
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:OrderConnection=Server=sourcingsqldb;Database=OrderDb;User Id=sa;Password=Odb12345678"
+      - "EventBus:HostName=rabbitmq"
+    depends_on:
+      - sourcingsqldb
+      - rabbitmq
+    volumes:
+      - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+      - ${HOME}/.aspnet/https:/root/.aspnet/https/
+    ports:
+      - "8002:80"
 

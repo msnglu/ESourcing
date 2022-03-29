@@ -24,7 +24,7 @@ namespace Ordering.Application.Handlers
 
         public async Task<IEnumerable<OrderResponse>> Handle(GetOrdersBySellerUsernameQuery request, CancellationToken cancellationToken)
         {
-            var orderList = await  _orderRepository.GetOrderBySellerUserName(request.Username);
+            var orderList = await  _orderRepository.GetOrdersBySellerUserName(request.Username);
             var response = _mapper.Map<IEnumerable<OrderResponse>>(orderList);
             return response;
         }

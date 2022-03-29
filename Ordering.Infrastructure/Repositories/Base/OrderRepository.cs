@@ -12,7 +12,7 @@ namespace Ordering.Infrastructure.Repositories.Base
         {
 
         }
-        public async Task<IEnumerable<Order>> GetOrderBySellerUserName(string userName)
+        public async Task<IEnumerable<Order>> GetOrdersBySellerUserName(string userName)
         {
             var orderList = await _dbContext.Orders.Where(s => s.SellerUserName == userName).ToListAsync();
             return orderList;   
