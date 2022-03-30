@@ -10,22 +10,12 @@ using RabbitMQ.Client;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-#region Swagger Dependencies
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "Order API",
-        Version = "v1"
-    });
-});
-#endregion
 builder.Services.AddControllers();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 #region EventBus RabbitMQ
 builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
 {
@@ -46,7 +36,22 @@ builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
 builder.Services.AddSingleton<EventBusOrderCreateConsumer>();
 #endregion
 
+#region Swagger Dependencies
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Order API",
+        Version = "v1"
+    });
+});
+#endregion
+
 var app = builder.Build();
+app.UseRouting();
+app.UseAuthorization();
 app.MigrateDatabase();
 #region Swagger 
 app.UseSwagger();
@@ -56,11 +61,14 @@ app.UseSwaggerUI(c =>
 });
 #endregion
 app.UseRabbitListener();
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-
+    app.UseDeveloperExceptionPage();
 }
 
 app.Run();
