@@ -14,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
+builder.Host.UseDefaultServiceProvider(s => s.ValidateScopes =false);
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 #region EventBus RabbitMQ
