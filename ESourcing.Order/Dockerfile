@@ -10,7 +10,7 @@ WORKDIR /src
 COPY ["ESourcing.Order/ESourcing.Order.csproj", "ESourcing.Order/"]
 COPY ["Ordering.Application/Ordering.Application.csproj", "Ordering.Application/"]
 COPY ["Ordering.Infrastructure/Ordering.Infrastructure.csproj", "Ordering.Infrastructure/"]
-COPY ["ESourcing.Order/Ordering.Domain/Ordering.Domain.csproj", "ESourcing.Order/Ordering.Domain/"]
+COPY ["Ordering.Domain/Ordering.Domain.csproj", "ESourcing.Order/Ordering.Domain/"]
 COPY ["EventBusRabbitMQ/EventBusRabbitMQ.csproj", "EventBusRabbitMQ/"]
 RUN dotnet restore "ESourcing.Order/ESourcing.Order.csproj"
 COPY . .
