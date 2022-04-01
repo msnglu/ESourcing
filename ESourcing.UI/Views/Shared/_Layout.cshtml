@@ -88,11 +88,20 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/widgets.html" class="nav-link">
+                            <a asp-action= "SignUp" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
-                                    Widgets
-                                    <span class="right badge badge-danger">New</span>
+                                    Sign Up
+                                    
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action= "Login" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                   Login
+                                    
                                 </p>
                             </a>
                         </li>
@@ -134,6 +143,8 @@
     <!-- ./wrapper -->
     <!-- jQuery -->
     <script src="~/plugins/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -163,7 +174,7 @@
     <!-- AdminLTE App -->
     <script src="~/dist/js/adminlte.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="~/dist/js/demo.js"></script>
+  @*  <script src="~/dist/js/demo.js"></script>*@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="~/dist/js/pages/dashboard.js"></script>
 </body>
