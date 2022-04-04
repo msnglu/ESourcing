@@ -27,6 +27,7 @@ namespace ESourcing.UI.Controllers
         {
             var userList =await _userRepository.GetAllAsync();
             ViewBag.UserList=userList;
+
             return View();
         }
         [HttpPost]

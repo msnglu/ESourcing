@@ -21,10 +21,15 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 #endregion
-
+#region Configuration Dependencies
+builder.Services.Configure<ProductDatabaseSettings>(builder.Configuration.GetSection(nameof(ProductDatabaseSettings)));
+builder.Services.AddSingleton<IProductDatabaseSettings>(sp => sp.GetRequiredService<IOptions<ProductDatabaseSettings>>().Value);
+#endregion
+#region Project Dependencies
+builder.Services.AddTransient<IProductContext, ProductContext>();
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
+#endregion
 builder.Services.AddControllers();
-ConfigureConfiguration(builder.Configuration);
-ConfigureServices(builder.Services);
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 
@@ -40,20 +45,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
-ConfigureMiddleware(app, app.Services);
-ConfigureEndpoints(app, app.Services);
 app.Run();
-void ConfigureConfiguration(ConfigurationManager configuration) { }
-void ConfigureServices(IServiceCollection services)  {
-    #region Configuration Dependencies
-    services.Configure<ProductDatabaseSettings>(builder.Configuration.GetSection(nameof(ProductDatabaseSettings)));
-    services.AddSingleton<IProductDatabaseSettings>(sp => sp.GetRequiredService<IOptions<ProductDatabaseSettings>>().Value);
-    #endregion
 
-    #region Project Dependencies
-    services.AddTransient<IProductContext, ProductContext>();
-    services.AddTransient<IProductRepository, ProductRepository>();
-    #endregion  
-}
-void ConfigureMiddleware(IApplicationBuilder app, IServiceProvider services)  { }
-void ConfigureEndpoints(IEndpointRouteBuilder app, IServiceProvider services)  { }

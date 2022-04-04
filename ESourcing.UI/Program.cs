@@ -36,7 +36,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LogoutPath = $"/Home/Logout";
 });
 var app = builder.Build();
-
+CreateAndSeedDatabase(app);
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -57,3 +57,23 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
 });
 app.Run();
+
+static void CreateAndSeedDatabase(IHost host)
+{
+    using (var scope = host.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+
+        try
+        {
+            var aspnetRunContext = services.GetRequiredService<WebAppContext>();
+            WebAppContextSeed.SeedAsync(aspnetRunContext, loggerFactory).Wait();
+        }
+        catch (Exception exception)
+        {
+            var logger = loggerFactory.CreateLogger<Program>();
+            logger.LogError(exception, "An error occured seeding the DB");
+        }
+    }
+}
