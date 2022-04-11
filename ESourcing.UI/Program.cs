@@ -6,6 +6,7 @@ using ESourcing.Core.Repositories.Base;
 using ESourcing.Infrastructure.Data;
 using ESourcing.Infrastructure.Repository;
 using ESourcing.Infrastructure.Repository.Base;
+using ESourcing.UI.Clients;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +36,9 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LoginPath = $"/Home/Login";
     options.LogoutPath = $"/Home/Logout";
 });
+builder.Services.AddHttpClient();
+builder.Services.AddHttpClient<ProductClient>();
+builder.Services.AddHttpClient<AuctionClient>();
 var app = builder.Build();
 CreateAndSeedDatabase(app);
 // Configure the HTTP request pipeline.
